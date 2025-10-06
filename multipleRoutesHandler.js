@@ -50,13 +50,13 @@ app.use("/product", (req,res,next)=>{
 })
 
 //we dont need to authrize user here while he's loging
-app.get("/user/login",userAuth,(req,res)=>{
+app.get("/am/login",userAuth,(req,res)=>{
     res.send("User route is being accessed")
 })
 
 
 //other way to use middleware on specific route
-app.get("/user/data",userAuth,(req,res)=>{
+app.get("/am/data",userAuth,(req,res)=>{
     res.send("User route is being accessed")
 })
 
