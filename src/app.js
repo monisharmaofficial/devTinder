@@ -3,23 +3,36 @@ const connectDB = require('./config/database')
 const User = require('./models/user')
 const app = express()
 
+app.use(express.json())
+
 app.post("/signup", async (req, res) => {
-    const user = new User(
-        {
-            firstName: "Monika",
-            lastName: "Sharma",
-            emailId: "monika.sharma@example.com",
-            password: "password123",
-            age: 25,
-            gender: "Female"
-        }
-    )
+
+    // console.log(req.body)
+
+    const user = new User(req.body)
     try{
-    await user.save()
-    res.send("User added successfully")
+        await user.save()
+        res.send("User added successfully")
     }catch(err){
-        res.status(500).send("Error while saving user data: " + err.message)
+        res.status(500).send("Error while saving user data : " + err.message)
     }
+
+    // const user = new User(
+    //     {
+    //         firstName: "Monika",
+    //         lastName: "Sharma",
+    //         emailId: "monika.sharma@example.com",
+    //         password: "password123",
+    //         age: 25,
+    //         gender: "Female"
+    //     }
+    // )
+    // try{
+    // await user.save()
+    // res.send("User added successfully")
+    // }catch(err){
+    //     res.status(500).send("Error while saving user data: " + err.message)
+    // }
 
 })
 
