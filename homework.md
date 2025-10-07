@@ -48,3 +48,12 @@
 - Js object vs JSON (difference)
 - Add the express.json middleware to your app
 - Make your signupr api dynamic to recieve data from the end user
+- User.findone wit duplicate email ids which object returned
+- Api- Get user by id
+- Api- feed api GET/feed get all the users from the databse
+- Api Get/ user by id 
+- Create a delete user api
+- Api to update user 
+- Explore the mongoose Dodumentation specially for model methods
+- What are options in Model.findOneAndUpdate method explore more about it
+- Create a api o update the use by email
