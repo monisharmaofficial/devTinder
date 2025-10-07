@@ -1,6 +1,6 @@
 const express = require('express')
 const app = express()
-const {adminAuth, userAuth} = require('./middleware/auth')
+const {adminAuth, userAuth} = require('./src/middleware/auth')
 
 app.use('/admin',adminAuth)
 // app.use('/user',userAuth)
@@ -93,3 +93,8 @@ app.delete("/admin/getData",(req,res)=>{
 app.listen('5000',()=>{
     console.log("Server is running on port 5000")
 })
+
+
+
+
+

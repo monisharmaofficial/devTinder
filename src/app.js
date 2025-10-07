@@ -1,44 +1,35 @@
 const express = require('express')
+const connectDB = require('./config/database')
+const User = require('./models/user')
 const app = express()
 
-// app.use('/',(req,res,next)=>{
-//     res.send('Hello from the server!')
-// })
+app.post("/signup", async (req, res) => {
+    const user = new User(
+        {
+            firstName: "Monika",
+            lastName: "Sharma",
+            emailId: "monika.sharma@example.com",
+            password: "password123",
+            age: 25,
+            gender: "Female"
+        }
+    )
+    try{
+    await user.save()
+    res.send("User added successfully")
+    }catch(err){
+        res.status(500).send("Error while saving user data: " + err.message)
+    }
 
-// app.get('/',(req,res)=>{
-//     res.send('Hello from the server using GET method!')
-// })
-
-// quesry parameter
-app.get('/user',(req,res)=>{
-    // res.send('Hello User from the server using GET method!')
-    console.log(req.query)
-     res.send({FirstName:"Monika",LastName:"Sharma"})
 })
 
-// route parameter
-app.get('/user/:id/:name/:age',(req,res)=>{
-    console.log(req.params)
-    res.send({FirstName:"Monika",LastName:"Sharma"})
-    //  res.send({FirstName:req.params.name,LastName:"Sharma",Age:req.params.age})
+
+connectDB().then(()=>{
+    console.log("Database Connected Successfully")
+    app.listen(4000,()=>{
+    console.log("server is running on port 4000")
+})
+}).catch((err)=>{
+    console.log("Error while connecting to database", err)
 })
 
-app.post('/user',(req,res)=>{
-    res.send("Data Successfully saved to the server using POST method!")
-})
-
-// app.use('/Hello/1',(req,res)=>{
-//     res.send("Hello 1 From Home")
-// })
-
-// app.use('/monika',(req,res,next)=>{
-//     res.send("Hello Monika from the server")
-// })
-
-// app.use('/aman',(req,res)=>{
-//     res.send("Hello Aman this server is for you by Monika")
-// })
-
-app.listen(7777,()=>{
-    console.log('Server is running on Port 7777')
-})
