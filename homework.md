@@ -57,3 +57,10 @@
 - Explore the mongoose Dodumentation specially for model methods
 - What are options in Model.findOneAndUpdate method explore more about it
 - Create a api o update the use by email
+
+- Explore schemaTypes options from the documentation
+- add require, unique, lowercase, min, minLength, trim
+- Add default
+- Create a custom validate function for gender
+- Improve the DB schema - Put all appropiate validation on each field in schema 
+- Add the timestamp in schema
