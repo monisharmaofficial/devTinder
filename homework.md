@@ -66,3 +66,5 @@
 - Add the timestamp in schema  
 - Add api level validation on patch req and sign up post api
 - Data Sanitization - Add api validation for each fields in schema 
+- Install Validator 
+- Explore validators library functions and use validator function for password, email and photoUrl
