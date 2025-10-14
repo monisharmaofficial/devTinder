@@ -98,35 +98,48 @@ app.delete("/user", async (req, res) => {
   }
 });
 
-app.patch("/user", async (req, res) => {
-  const userId = req.body.userId;
+app.patch("/user/:userId", async (req, res) => {
+  const userId = req.params?.userId;
   const data = req.body;
-  const user = await User.findOneAndUpdate({ _id: userId }, data, {returnDocument:"after", runValidators:true});
-  try {
-    if(user){
-    console.log(user);
-    res.send("User Updated successfully");
-    }else{
-      res.send("User not found with this id")
-    }
 
+  try {
+    const ALLOWED_UPDATES = ["photoUrl", "about", "gender", "age", "skills"];
+    const isUpdateAllowed = Object.keys(data).every((key) =>
+      ALLOWED_UPDATES.includes(key)
+    );
+
+    if (!isUpdateAllowed) {
+      throw new Error("Update not allowed");
+    }
+    if(data?.skills.length>10){
+      throw new Error("Skills can not be more than 10")
+    }
+    const user = await User.findOneAndUpdate({ _id: userId }, data, {
+      returnDocument: "after",
+      runValidators: true,
+    });
+    if (user) {
+      console.log(user);
+      res.send("User Updated successfully");
+    } else {
+      res.send("User not found with this id");
+    }
   } catch (err) {
     res.status(500).send("Something went wrong: " + err.message);
   }
 });
 
-app.patch("/userByEmail",async(req,res)=>{
- const userEmail = req.body.emailId;
- const data = req.body;
+app.patch("/userByEmail", async (req, res) => {
+  const userEmail = req.body.emailId;
+  const data = req.body;
 
- try{
-  const user = await User.findOneAndUpdate({emailId:userEmail},data)
-  res.send("User Updated Successfully")
- }catch(err){
-  res.status(500).send("Something went wrong: " + err.message)
- }
-
-})
+  try {
+    const user = await User.findOneAndUpdate({ emailId: userEmail }, data);
+    res.send("User Updated Successfully");
+  } catch (err) {
+    res.status(500).send("Something went wrong: " + err.message);
+  }
+});
 
 connectDB()
   .then(() => {
